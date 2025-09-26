@@ -1,0 +1,9 @@
+Company Name: TechPro Solutions
+Address: 123 Innovation Drive, Tech Valley, CA 94025
+Phone: (555) 123-4567
+Email: contact@techpro.example.com
+Hours: Monday - Friday: 9:00 AM - 6:00 PM
+Social Media:
+Twitter: @TechProSolutions
+LinkedIn: linkedin.com/company/techpro-solutions
+Support Email: support@techpro.example.com
