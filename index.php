@@ -1,15 +1,28 @@
 <?php
 // Simple PHP + MySQL demo app
-+
 // Reads connection info from environment variables: DB_HOST, DB_USER, DB_PASS, DB_NAME (optional DB_PORT)
+$dbHost = (string) (getenv('DB_HOST') ?: 'localhost');
+$dbUser = (string) (getenv('DB_USER') ?: 'root');
+$dbPass = (string) (getenv('DB_PASS') ?: '');
+$dbName = (string) (getenv('DB_NAME') ?: '');
 
-$dbHost = getenv('DB_HOST') ?: 'localhost';
-$dbUser = getenv('DB_USER') ?: 'root';
-$dbPass = getenv('DB_PASS') ?: '';
-$dbName = getenv('DB_NAME') ?: '';
-$dbPort = getenv('DB_PORT') ?: ini_get('mysqli.default_port');
+// Ensure port is an integer. Prefer DB_PORT env var, then PHP ini, then 3306.
+$envPort = getenv('DB_PORT');
+if ($envPort !== false && $envPort !== '') {
+    $dbPort = (int) $envPort;
+} else {
+    $iniPort = ini_get('mysqli.default_port');
+    $dbPort = ($iniPort !== false && $iniPort !== '') ? (int) $iniPort : 3306;
+}
 
-$conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
+$conn = null;
+try {
+    // Wrap in try/catch to avoid fatal TypeError (e.g. if a string is accidentally used with numeric ops).
+    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
+} catch (TypeError $e) {
+    $conn = null; // will be handled below
+    $connectError = 'TypeError during mysqli construction: ' . $e->getMessage();
+}
 
 function h($s)
 {
@@ -17,9 +30,16 @@ function h($s)
 }
 
 $connected = true;
-if ($conn->connect_error) {
+if ($conn === null) {
     $connected = false;
-    $connectError = $conn->connect_error;
+    if (!isset($connectError)) {
+        $connectError = 'Could not create mysqli connection (null)';
+    }
+} else {
+    if ($conn->connect_error) {
+        $connected = false;
+        $connectError = $conn->connect_error;
+    }
 }
 
 // Handle actions: create table, insert row
