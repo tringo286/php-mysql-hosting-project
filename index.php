@@ -15,13 +15,20 @@ if ($envPort !== false && $envPort !== '') {
     $dbPort = ($iniPort !== false && $iniPort !== '') ? (int) $iniPort : 3306;
 }
 
+// Prefer TCP for localhost to avoid Unix socket "No such file or directory" errors on some hosts.
 $conn = null;
+$connectHost = $dbHost;
+if ($dbHost === 'localhost') {
+    // Using 127.0.0.1 forces TCP rather than Unix socket
+    $connectHost = '127.0.0.1';
+}
+
 try {
-    // Wrap in try/catch to avoid fatal TypeError (e.g. if a string is accidentally used with numeric ops).
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
-} catch (TypeError $e) {
+    // Catch any throwable (mysqli_sql_exception, TypeError, etc.) so the page can show a helpful message.
+    $conn = new mysqli($connectHost, $dbUser, $dbPass, $dbName, $dbPort);
+} catch (Throwable $e) {
     $conn = null; // will be handled below
-    $connectError = 'TypeError during mysqli construction: ' . $e->getMessage();
+    $connectError = 'Error during mysqli construction: ' . $e->getMessage();
 }
 
 function h($s)
