@@ -1,9 +1,9 @@
 <?php
 // Simple PHP + MySQL demo app
 +
-    // Reads connection info from environment variables: DB_HOST, DB_USER, DB_PASS, DB_NAME (optional DB_PORT)
+// Reads connection info from environment variables: DB_HOST, DB_USER, DB_PASS, DB_NAME (optional DB_PORT)
 
-    $dbHost = getenv('DB_HOST') ?: 'localhost';
+$dbHost = getenv('DB_HOST') ?: 'localhost';
 $dbUser = getenv('DB_USER') ?: 'root';
 $dbPass = getenv('DB_PASS') ?: '';
 $dbName = getenv('DB_NAME') ?: '';
