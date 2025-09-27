@@ -1,4 +1,4 @@
-<?php include '../includes/header.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
 
 <div class="hero">
     <h1>Contact Us</h1>
@@ -9,7 +9,7 @@
     <div class="contact-info">
         <?php
         // Read and display contact information from contacts.txt
-        $contactFile = '../data/contacts.txt';
+        $contactFile = $_SERVER['DOCUMENT_ROOT'] . '/data/contacts.txt';
         if (file_exists($contactFile)) {
             $contacts = file_get_contents($contactFile);
             // Convert plain text to HTML (preserve line breaks)
@@ -45,4 +45,4 @@
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>

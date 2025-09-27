@@ -84,12 +84,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <body>
     <nav>
         <ul>
-            <li><a href="index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
-            <li><a href="about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a></li>
-            <li><a href="products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a>
+            <li><a href="/index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
+            <li><a href="/pages/about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a>
             </li>
-            <li><a href="news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
-            <li><a href="contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a>
+            <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a>
+            </li>
+            <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
+            <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a>
             </li>
         </ul>
     </nav>

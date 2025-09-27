@@ -1,4 +1,4 @@
-<?php include '../includes/header.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
 
 <div class="hero">
     <h1>About TechPro Solutions</h1>
@@ -30,4 +30,4 @@
     </ul>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
