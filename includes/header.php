@@ -18,6 +18,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
         .container {
             width: 80%;
+            
+        .admin-link {
+            float: right;
+            margin-right: 20px;
+        }
+
+        .admin-link a {
+            color: #666;
+            text-decoration: none;
+        }
             margin: 0 auto;
             padding: 20px;
         }
@@ -92,6 +102,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
             <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a>
             </li>
+            <li class="admin-link"><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class="active"' : ''; ?>>Admin</a></li>
         </ul>
     </nav>
     <div class="container">
