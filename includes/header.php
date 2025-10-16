@@ -1,12 +1,13 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
-    <style>
-        body {
-            font-family: 'Montserrat', 'Arial', sans-serif;
-            background: #f4f6fb;
-            margin: 0;
-            padding: 0;
-        }
+?>
+<style>
+    body {
+        font-family: 'Montserrat', 'Arial', sans-serif;
+        background: #f4f6fb;
+        margin: 0;
+        padding: 0;
+    }
 
         .container {
             width: 90%;
