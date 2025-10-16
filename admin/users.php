@@ -17,18 +17,19 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     <?php include('../includes/header.php'); ?>
     
     <div class="container">
-        <h2>Website Users</h2>
+        <h2 style="margin-bottom: 24px;">Website Users</h2>
         <div class="users-list">
             <ul>
-                <li>Mary Smith - Premium Member</li>
-                <li>John Wang - Basic Member</li>
-                <li>Alex Bington - Premium Member</li>
-                <li>Sarah Johnson - Basic Member</li>
-                <li>Michael Brown - Premium Member</li>
+                <li><strong>Mary Smith</strong> <span style="color:#4e4376;">- Premium Member</span></li>
+                <li><strong>John Wang</strong> <span style="color:#4e4376;">- Basic Member</span></li>
+                <li><strong>Alex Bington</strong> <span style="color:#4e4376;">- Premium Member</span></li>
+                <li><strong>Sarah Johnson</strong> <span style="color:#4e4376;">- Basic Member</span></li>
+                <li><strong>Michael Brown</strong> <span style="color:#4e4376;">- Premium Member</span></li>
             </ul>
         </div>
-        
-        <p><a href="logout.php">Logout</a></p>
+        <div style="margin-top: 32px; text-align: right;">
+            <a href="logout.php" style="background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%); color: #fff; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s;">Logout</a>
+        </div>
     </div>
 
     <?php include('../includes/footer.php'); ?>

@@ -26,14 +26,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         .login-container {
             max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 60px auto;
+            padding: 32px 28px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(78,67,118,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #4e4376;
+            margin-bottom: 24px;
+        }
+        label {
+            font-weight: 500;
+            color: #4e4376;
+        }
+        input[type="text"], input[type="password"] {
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 1.07rem;
+            margin-bottom: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        input[type="submit"] {
+            width: 100%;
+            margin-top: 10px;
         }
         .error {
-            color: red;
-            margin-bottom: 10px;
+            color: #d32f2f;
+            background: #ffeaea;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 14px;
+            text-align: center;
         }
     </style>
 </head>

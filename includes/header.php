@@ -1,108 +1,182 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechPro Solutions - <?php echo ucfirst(str_replace('.php', '', $currentPage)); ?></title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background: #f4f6fb;
             margin: 0;
             padding: 0;
         }
 
         .container {
-            width: 80%;
-            
-        .admin-link {
-            float: right;
-            margin-right: 20px;
-        }
-
-        .admin-link a {
-            color: #666;
-            text-decoration: none;
-        }
-            margin: 0 auto;
-            padding: 20px;
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px 28px;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(78,67,118,0.08);
+            border-radius: 12px;
         }
 
         nav {
-            background-color: #333;
-            padding: 1rem 0;
+            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+            box-shadow: 0 2px 8px rgba(78,67,118,0.07);
         }
 
         nav ul {
             list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         nav ul li {
-            margin: 0 15px;
+            margin: 0 22px;
         }
 
         nav ul li a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 1.13rem;
+            padding: 18px 0;
+            display: block;
+            letter-spacing: 0.5px;
+            transition: color 0.2s, border-bottom 0.2s;
         }
 
+        nav ul li a.active,
         nav ul li a:hover {
-            color: #00a8ff;
+            color: #ffd700;
+            border-bottom: 2px solid #ffd700;
         }
 
-        .active {
-            color: #00a8ff !important;
+        .admin-link {
+            margin-left: auto;
         }
 
-        .hero {
-            background-color: #f4f4f4;
-            padding: 2rem 0;
-            text-align: center;
-            margin-bottom: 2rem;
+        h1, h2, h3 {
+            color: #4e4376;
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin-top: 0;
         }
 
-        .content {
-            margin-bottom: 2rem;
+        button, input[type="submit"] {
+            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 22px;
+            font-size: 1.07rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
         }
 
-        .news-item,
-        .product-item {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 5px;
+        button:hover, input[type="submit"]:hover {
+            background: #ffd700;
+            color: #4e4376;
+        }
+
+        input, textarea {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 1.07rem;
+            margin-bottom: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+
+        .error {
+            color: #d32f2f;
+            background: #ffeaea;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 14px;
+        }
+
+        .users-list ul {
+            background: #f7f7fa;
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
+        }
+
+        .users-list li {
+            margin-bottom: 12px;
+            font-size: 1.09rem;
         }
 
         .contact-info {
             background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 24px;
+            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
+        }
+        .hero {
+            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+            color: #fff;
+            padding: 48px 0 32px 0;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(78,67,118,0.07);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 0;
+        }
+        .content {
+            margin-top: 18px;
+        }
+        .product-item, .news-item {
+            background: #f7f7fa;
+            border-radius: 8px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
+        }
+        .product-item h3, .news-item h3 {
+            color: #2b5876;
+            margin-top: 0;
+        }
+        .product-item ul, .news-item ul {
+            margin-left: 18px;
+        }
+        .contact-info {
+            background-color: #f9f9f9;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 24px;
+            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
+        }
+        form label {
+            font-weight: 500;
+            color: #4e4376;
+        }
+        form button, form input[type="submit"] {
+            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 22px;
+            font-size: 1.07rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        form button:hover, form input[type="submit"]:hover {
+            background: #ffd700;
+            color: #4e4376;
         }
     </style>
-</head>
-
-<body>
-    <nav>
-        <ul>
-            <li><a href="/index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
-            <li><a href="/pages/about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a>
-            </li>
-            <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a>
-            </li>
-            <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
-            <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a>
-            </li>
-            <li class="admin-link"><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class="active"' : ''; ?>>Admin</a></li>
-        </ul>
-    </nav>
-    <div class="container">
