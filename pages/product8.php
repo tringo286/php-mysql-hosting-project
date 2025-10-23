@@ -1,6 +1,6 @@
 <?php
-$productId = 'product2';
-$productName = 'Cloud Migration Service';
+$productId = 'product8';
+$productName = 'Data Engineering';
 $recent = [];
 if (!empty($_COOKIE['recent_products'])) {
     $recent = json_decode($_COOKIE['recent_products'], true) ?: [];
@@ -21,11 +21,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 ?>
 <div class="hero">
     <h1><?php echo htmlspecialchars($productName); ?></h1>
-    <p>Smooth, secure migration to the cloud.</p>
-    <img src="/assets/images/product2.svg" alt="<?php echo htmlspecialchars($productName); ?>" style="max-width:100%; margin-top:18px; border-radius:8px;">
+    <p>Build reliable data pipelines and warehouses.</p>
+    <img src="/assets/images/product8.svg" alt="<?php echo htmlspecialchars($productName); ?>" style="max-width:100%; margin-top:18px; border-radius:8px;">
 </div>
 <div class="content">
     <h2>Overview</h2>
-    <p>We help companies migrate applications and data to the cloud with minimal downtime and risk.</p>
+    <p>ETL, data lakes, and analytics-ready pipelines.</p>
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>

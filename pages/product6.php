@@ -1,6 +1,6 @@
 <?php
-$productId = 'product2';
-$productName = 'Cloud Migration Service';
+$productId = 'product6';
+$productName = 'Cybersecurity Services';
 $recent = [];
 if (!empty($_COOKIE['recent_products'])) {
     $recent = json_decode($_COOKIE['recent_products'], true) ?: [];
@@ -21,11 +21,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 ?>
 <div class="hero">
     <h1><?php echo htmlspecialchars($productName); ?></h1>
-    <p>Smooth, secure migration to the cloud.</p>
-    <img src="/assets/images/product2.svg" alt="<?php echo htmlspecialchars($productName); ?>" style="max-width:100%; margin-top:18px; border-radius:8px;">
+    <p>Protect your systems and data from threats.</p>
+    <img src="/assets/images/product6.svg" alt="<?php echo htmlspecialchars($productName); ?>" style="max-width:100%; margin-top:18px; border-radius:8px;">
 </div>
 <div class="content">
     <h2>Overview</h2>
-    <p>We help companies migrate applications and data to the cloud with minimal downtime and risk.</p>
+    <p>Security assessments, penetration testing, and continuous monitoring services.</p>
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>

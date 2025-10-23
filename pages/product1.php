@@ -1,11 +1,9 @@
 <?php
 // Product 1
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
-
 $productId = 'product1';
 $productName = 'AI Analytics Platform';
 
-// Manage recent visits cookie (last 5)
+// Manage recent visits cookie (last 5) - must run before any output
 $recent = [];
 if (!empty($_COOKIE['recent_products'])) {
     $recent = json_decode($_COOKIE['recent_products'], true) ?: [];
@@ -16,7 +14,7 @@ array_unshift($recent, $productId);
 $recent = array_slice($recent, 0, 5);
 setcookie('recent_products', json_encode($recent), time()+60*60*24*30, '/');
 
-// Manage visit counts cookie
+// Manage visit counts cookie - must run before any output
 $counts = [];
 if (!empty($_COOKIE['product_counts'])) {
     $counts = json_decode($_COOKIE['product_counts'], true) ?: [];
@@ -24,6 +22,9 @@ if (!empty($_COOKIE['product_counts'])) {
 if (!isset($counts[$productId])) $counts[$productId] = 0;
 $counts[$productId] += 1;
 setcookie('product_counts', json_encode($counts), time()+60*60*24*365, '/');
+
+// Now include header and start output
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 ?>
 
 <div class="hero">

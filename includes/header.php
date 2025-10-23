@@ -13,7 +13,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             width: 90%;
             max-width: 900px;
             margin: 30px auto;
-            padding: 30px 28px;
+            padding: 30px 28px 80px; /* added bottom padding so footer doesn't overlap */
             background: #fff;
             box-shadow: 0 2px 12px rgba(78,67,118,0.08);
             border-radius: 12px;
