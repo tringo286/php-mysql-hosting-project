@@ -6,38 +6,23 @@
 </div>
 
 <div class="content">
-    <div class="product-item">
-        <h3>Custom Software Development</h3>
-        <p>Tailored software solutions designed to meet your specific business needs. From web applications to mobile
-            apps, we deliver scalable and secure solutions.</p>
-        <ul>
-            <li>Web Applications</li>
-            <li>Mobile Apps (iOS & Android)</li>
-            <li>Enterprise Software</li>
-            <li>API Development & Integration</li>
-        </ul>
+    <h2>All Products & Services</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-top:18px;">
+        <div class="product-item"><h3><a href="/pages/product1.php">AI Analytics Platform</a></h3><p>Real-time dashboards and predictive analytics.</p></div>
+        <div class="product-item"><h3><a href="/pages/product2.php">Cloud Migration Service</a></h3><p>Smooth, secure cloud migration.</p></div>
+        <div class="product-item"><h3><a href="/pages/product3.php">Mobile App Development</a></h3><p>iOS & Android native and cross-platform apps.</p></div>
+        <div class="product-item"><h3><a href="/pages/product4.php">Enterprise Software</a></h3><p>Scalable business-critical systems.</p></div>
+        <div class="product-item"><h3><a href="/pages/product5.php">DevOps & SRE</a></h3><p>CI/CD, automation, and reliability engineering.</p></div>
+        <div class="product-item"><h3><a href="/pages/product6.php">Cybersecurity Services</a></h3><p>Security assessments and monitoring.</p></div>
+        <div class="product-item"><h3><a href="/pages/product7.php">UX/UI Design</a></h3><p>User research and polished interfaces.</p></div>
+        <div class="product-item"><h3><a href="/pages/product8.php">Data Engineering</a></h3><p>ETL, data lakes, and pipelines.</p></div>
+        <div class="product-item"><h3><a href="/pages/product9.php">AI Chatbots</a></h3><p>Conversational bots for support and sales.</p></div>
+        <div class="product-item"><h3><a href="/pages/product10.php">Custom Integrations</a></h3><p>APIs and connector development.</p></div>
     </div>
 
-    <div class="product-item">
-        <h3>Cloud Solutions</h3>
-        <p>Comprehensive cloud services to help you migrate, manage, and optimize your cloud infrastructure.</p>
-        <ul>
-            <li>Cloud Migration</li>
-            <li>Cloud Infrastructure Management</li>
-            <li>Cloud Security</li>
-            <li>DevOps Services</li>
-        </ul>
-    </div>
-
-    <div class="product-item">
-        <h3>Digital Transformation</h3>
-        <p>Strategic consulting and implementation services to help your business succeed in the digital age.</p>
-        <ul>
-            <li>Digital Strategy Consulting</li>
-            <li>Process Automation</li>
-            <li>Data Analytics</li>
-            <li>AI & Machine Learning Solutions</li>
-        </ul>
+    <div style="margin-top: 22px; display:flex; gap:12px;">
+        <a href="/pages/products_recent.php" style="text-decoration:none; padding:8px 12px; background:#fff; border:1px solid #ddd; border-radius:6px;">Recently Visited</a>
+        <a href="/pages/products_top5.php" style="text-decoration:none; padding:8px 12px; background:#fff; border:1px solid #ddd; border-radius:6px;">Top 5 Most Visited</a>
     </div>
 </div>
 
