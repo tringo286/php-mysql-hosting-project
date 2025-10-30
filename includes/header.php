@@ -190,7 +190,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a></li>
             <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
             <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a></li>
-            <li class="admin-link"><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class=\"active\"' : ''; ?>>Admin</a></li>
+            <li style="margin-left: auto;"><a href="/pages/combined_users.php" <?php echo $currentPage == 'combined_users.php' ? 'class="active"' : ''; ?>>Users</a></li>
+            <li><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class=\"active\"' : ''; ?>>Admin</a></li>
         </ul>
     </nav>
     <div class="container">

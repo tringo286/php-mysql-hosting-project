@@ -23,19 +23,44 @@ function getUsersFromAPI($url) {
 // Get local users from database
 $localUsers = [];
 try {
-    $conn = new PDO("mysql:host=localhost;dbname=companydb", "root", "");
+    // Make sure to update these with your actual database credentials
+    $servername = "localhost";
+    $username = "root";      // replace with your actual database username
+    $password = "";          // replace with your actual database password
+    $dbname = "hosting_db"; // replace with your actual database name
+
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Check if users table exists, if not create it
+    $conn->exec("CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL
+    )");
+    
+    // Insert some sample data if table is empty
+    $stmt = $conn->query("SELECT COUNT(*) FROM users");
+    if ($stmt->fetchColumn() == 0) {
+        $conn->exec("INSERT INTO users (name, email) VALUES 
+            ('John Doe', 'john@example.com'),
+            ('Jane Smith', 'jane@example.com'),
+            ('Bob Johnson', 'bob@example.com')
+        ");
+    }
+    
     $stmt = $conn->prepare("SELECT id, name, email FROM users");
     $stmt->execute();
     $localUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    echo "Database connection failed: " . $e->getMessage();
+    echo "<div class='error-message'>Database connection failed: " . $e->getMessage() . "</div>";
 }
 
 // Get users from Company B (Lambert's endpoint)
 $companyB_users = getUsersFromAPI('https://lambertnguyen.cloud/api/users');
-// Get users from Company C (replace with actual endpoint)
-$companyC_users = getUsersFromAPI('http://company-c-url/api/get_users.php');
+
+// Temporarily disable Company C until we have their endpoint
+$companyC_users = [];
 ?>
 
 <div class="content">
@@ -107,21 +132,39 @@ $companyC_users = getUsersFromAPI('http://company-c-url/api/get_users.php');
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .users-table th,
 .users-table td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 12px;
     text-align: left;
 }
 
 .users-table th {
-    background-color: #f4f4f4;
+    background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+    color: white;
 }
 
 .users-table tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #ffcdd2;
+}
+
+.section-title {
+    color: #2b5876;
+    margin: 30px 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4e4376;
 }
 </style>
 
