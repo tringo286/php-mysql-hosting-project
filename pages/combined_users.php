@@ -53,7 +53,52 @@ try {
     $stmt->execute();
     $localUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    echo "<div class='error-message'>Database connection failed: " . $e->getMessage() . "</div>";
+    // PDO failed (likely missing pdo_mysql driver). Try a mysqli fallback so the page can still show users.
+    $pdoError = $e->getMessage();
+    try {
+        // Attempt MySQLi connection as a fallback
+        $mysqli = new mysqli($servername, $username, $password, $dbname);
+        if ($mysqli->connect_errno) {
+            throw new Exception('MySQLi connect failed: ' . $mysqli->connect_error);
+        }
+
+        // Ensure table exists
+        $createSql = "CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL
+        )";
+        $mysqli->query($createSql);
+
+        // Insert sample data if empty
+        $resCount = $mysqli->query("SELECT COUNT(*) as cnt FROM users");
+        $cnt = 0;
+        if ($resCount && $row = $resCount->fetch_assoc()) {
+            $cnt = (int)$row['cnt'];
+        }
+        if ($cnt === 0) {
+            $mysqli->query("INSERT INTO users (name, email) VALUES 
+                ('John Doe', 'john@example.com'),
+                ('Jane Smith', 'jane@example.com'),
+                ('Bob Johnson', 'bob@example.com')
+            ");
+        }
+
+        // Fetch users
+        $result = $mysqli->query("SELECT id, name, email FROM users");
+        $localUsers = [];
+        if ($result) {
+            while ($r = $result->fetch_assoc()) {
+                $localUsers[] = $r;
+            }
+        }
+
+        $mysqli->close();
+    } catch (Exception $e2) {
+        // Show combined error but keep it safe for display
+        $combined = htmlspecialchars($pdoError . ' | ' . $e2->getMessage());
+        echo "<div class='error-message'>Database connection failed: " . $combined . "</div>";
+    }
 }
 
 // Get users from Company B (Lambert's endpoint)
