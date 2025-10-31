@@ -28,8 +28,12 @@ function getUsersFromAPI($url) {
 
 // --- Company A (Local Users) ---
 $localUsers = [];
-$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
+// On Render, use environment variable for base URL if available
+$baseUrl = getenv('BASE_URL');
+if (!$baseUrl) {
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
+}
 
 // Prefer a JSON API for local users
 $localUsers = getUsersFromAPI($baseUrl . '/api/local_users.php');

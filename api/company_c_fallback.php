@@ -7,5 +7,5 @@ $users = [
     ['name' => 'Suresh Kumar', 'email' => 'suresh.k@example.com']
 ];
 
-echo json_encode(['status' => 'success', 'users' => $users]);
+echo json_encode(['status' => 'success', 'data' => $users]);
 ?>
