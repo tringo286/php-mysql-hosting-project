@@ -34,43 +34,19 @@ $baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
 // Prefer a JSON API for local users
 $localUsers = getUsersFromAPI($baseUrl . '/api/local_users.php');
 
-// --- Optional: Fallback to local DB query (only if needed) ---
-try {
-    $mysqli = new mysqli('127.0.0.1', 'username', 'password', 'database');
-    if ($mysqli->connect_error) {
-        throw new Exception($mysqli->connect_error);
-    }
-
-    $result = $mysqli->query("SELECT id, name, email FROM users");
-    if ($result) {
-        while ($r = $result->fetch_assoc()) {
-            $localUsers[] = $r;
-        }
-    }
-
-    $mysqli->close();
-} catch (Exception $e2) {
-    $pdoError = isset($pdoError) ? $pdoError : '';
-    $combined = htmlspecialchars($pdoError . ' | ' . $e2->getMessage());
-    echo "<div class='error-message'>Database connection failed: " . $combined . "</div>";
-    echo "<div class='error-message'>Possible causes: 
-        <ul style='margin:6px 0 6px 18px;'>
-            <li>PDO MySQL extension (pdo_mysql) is not enabled in PHP — check <code>phpinfo()</code> for 'pdo_mysql'.</li>
-            <li>MySQL server is not running or not reachable at <code>127.0.0.1:3306</code>. Start MySQL (MAMP/Homebrew/XAMPP/Docker) or update host/port.</li>
-            <li>Incorrect DB credentials or database name — update the variables at the top of this page.</li>
-        </ul>
-    </div>";
-}
+// We now use the local JSON endpoint `api/local_users.php` for Company A and do not attempt a local DB here.
 
 // --- Company B ---
 $companyB_users = getUsersFromAPI('https://lambertnguyen.cloud/api/users');
 
-// --- Company C (Temporarily Disabled) ---
 // --- Company C ---
 $companyC_users = getUsersFromAPI('https://anukrithimyadala.42web.io/users_api.php');
+// If remote Company C is unreachable, fall back to a local sample endpoint so the page always shows Company C
+if (empty($companyC_users)) {
+    $companyC_users = getUsersFromAPI($baseUrl . '/api/company_c_fallback.php');
+}
 
-// Determine simple health/status for each remote
-$endpointStatus = [];
+// Determine simple health/status for each source
 $endpointStatus['local'] = !empty($localUsers) ? 'ok' : 'empty';
 $endpointStatus['company_b'] = !empty($companyB_users) ? 'ok' : 'unreachable';
 $endpointStatus['company_c'] = !empty($companyC_users) ? 'ok' : 'unreachable';
@@ -136,7 +112,7 @@ $companyC_users = normalizeUsers($companyC_users);
             <tr><th>ID</th><th>Name</th><th>Email</th></tr>
         </thead>
         <tbody>
-            <?php foreach ($companyB_users as $idx => $user): ?>
+                <?php foreach ($companyB_users as $idx => $user): ?>
                 <?php
                     if (!is_array($user)) continue;
                     $uid = $user['id'] ?? ($idx+1);
@@ -158,7 +134,7 @@ $companyC_users = normalizeUsers($companyC_users);
             <tr><th>ID</th><th>Name</th><th>Email</th></tr>
         </thead>
         <tbody>
-            <?php foreach ($companyC_users as $idx => $user): ?>
+                <?php foreach ($companyC_users as $idx => $user): ?>
                 <?php
                     if (!is_array($user)) continue;
                     $uid = $user['id'] ?? ($idx+1);
