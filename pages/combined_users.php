@@ -14,8 +14,11 @@ function getUsersFromAPI($url) {
         $data = json_decode($response, true);
         // Normalize common shapes: {data: [...]}, {users: [...]}, or raw list
         if (is_array($data)) {
+            // Check for common response structures
             if (isset($data['data']) && is_array($data['data'])) return $data['data'];
             if (isset($data['users']) && is_array($data['users'])) return $data['users'];
+            // For PureBite Beauty format (success + users array)
+            if (isset($data['success']) && isset($data['users']) && is_array($data['users'])) return $data['users'];
             // If it's an associative with numeric keys, try to return as list
             $allNumeric = true;
             foreach ($data as $k => $v) { if (!is_int($k)) { $allNumeric = false; break; } }
