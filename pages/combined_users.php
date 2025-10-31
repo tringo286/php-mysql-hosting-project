@@ -2,91 +2,13 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 // Function to get users from a remote API using CURL
-function getUsersFromAPI($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Only for development
-    $response = curl_exec($ch);
-    
-    if(curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        return [];
-    }
-    
-    curl_close($ch);
-    $result = json_decode($response, true);
-    
-    return isset($result['data']) ? $result['data'] : [];
-}
-
-// Get local users from database
+// Instead of directly accessing a local DB here, fetch local users from the admin users endpoint
+// or a small JSON endpoint we provide. This avoids auth/session issues with admin pages.
 $localUsers = [];
-try {
-    // Make sure to update these with your actual database credentials
-    $servername = "localhost";
-    $username = "root";      // replace with your actual database username
-    $password = "";          // replace with your actual database password
-    $dbname = "hosting_db"; // replace with your actual database name
-
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // Check if users table exists, if not create it
-    $conn->exec("CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL
-    )");
-    
-    // Insert some sample data if table is empty
-    $stmt = $conn->query("SELECT COUNT(*) FROM users");
-    if ($stmt->fetchColumn() == 0) {
-        $conn->exec("INSERT INTO users (name, email) VALUES 
-            ('John Doe', 'john@example.com'),
-            ('Jane Smith', 'jane@example.com'),
-            ('Bob Johnson', 'bob@example.com')
-        ");
-    }
-    
-    $stmt = $conn->prepare("SELECT id, name, email FROM users");
-    $stmt->execute();
-    $localUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
-    // PDO failed (likely missing pdo_mysql driver). Try a mysqli fallback so the page can still show users.
-    $pdoError = $e->getMessage();
-    try {
-        // Attempt MySQLi connection as a fallback
-        $mysqli = new mysqli($servername, $username, $password, $dbname);
-        if ($mysqli->connect_errno) {
-            throw new Exception('MySQLi connect failed: ' . $mysqli->connect_error);
-        }
-
-        // Ensure table exists
-        $createSql = "CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL
-        )";
-        $mysqli->query($createSql);
-
-        // Insert sample data if empty
-        $resCount = $mysqli->query("SELECT COUNT(*) as cnt FROM users");
-        $cnt = 0;
-        if ($resCount && $row = $resCount->fetch_assoc()) {
-            $cnt = (int)$row['cnt'];
-        }
-        if ($cnt === 0) {
-            $mysqli->query("INSERT INTO users (name, email) VALUES 
-                ('John Doe', 'john@example.com'),
-                ('Jane Smith', 'jane@example.com'),
-                ('Bob Johnson', 'bob@example.com')
-            ");
-        }
-
-        // Fetch users
-        $result = $mysqli->query("SELECT id, name, email FROM users");
-        $localUsers = [];
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
+// Prefer a JSON API for local users; we added /api/local_users.php which mirrors admin/users.php content
+$localUsers = getUsersFromAPI($baseUrl . '/api/local_users.php');
         if ($result) {
             while ($r = $result->fetch_assoc()) {
                 $localUsers[] = $r;
@@ -98,6 +20,11 @@ try {
         // Show combined error but keep it safe for display
         $combined = htmlspecialchars($pdoError . ' | ' . $e2->getMessage());
         echo "<div class='error-message'>Database connection failed: " . $combined . "</div>";
+        echo "<div class='error-message'>Possible causes: <ul style='margin:6px 0 6px 18px;'>";
+        echo "<li>PDO MySQL extension (pdo_mysql) is not enabled in PHP — check <code>phpinfo()</code> for 'pdo_mysql'.</li>";
+        echo "<li>MySQL server is not running or not reachable at <code>127.0.0.1:3306</code>. Start MySQL (MAMP/Homebrew/XAMPP/Docker) or update host/port.</li>";
+        echo "<li>Incorrect DB credentials or database name — update the variables at the top of this page.</li>";
+        echo "</ul></div>";
     }
 }
 
