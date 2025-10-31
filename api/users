@@ -1,0 +1,7 @@
+<?php
+// Compatibility wrapper so your endpoint matches teammates' URL /api/users
+// This will include the existing get_users.php logic.
+include __DIR__ . '/get_users.php';
+
+// Note: if your server doesn't allow .php-less filenames, you can also access /api/get_users.php
+?>

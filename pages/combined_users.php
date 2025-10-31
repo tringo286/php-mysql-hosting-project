@@ -12,7 +12,16 @@ function getUsersFromAPI($url) {
 
     if ($httpCode === 200 && $response) {
         $data = json_decode($response, true);
-        return is_array($data) ? $data : [];
+        // Normalize common shapes: {data: [...]}, {users: [...]}, or raw list
+        if (is_array($data)) {
+            if (isset($data['data']) && is_array($data['data'])) return $data['data'];
+            if (isset($data['users']) && is_array($data['users'])) return $data['users'];
+            // If it's an associative with numeric keys, try to return as list
+            $allNumeric = true;
+            foreach ($data as $k => $v) { if (!is_int($k)) { $allNumeric = false; break; } }
+            if ($allNumeric) return $data;
+        }
+        return [];
     }
     return [];
 }
@@ -57,55 +66,109 @@ try {
 $companyB_users = getUsersFromAPI('https://lambertnguyen.cloud/api/users');
 
 // --- Company C (Temporarily Disabled) ---
-$companyC_users = [];
+// --- Company C ---
+$companyC_users = getUsersFromAPI('https://anukrithimyadala.42web.io/users_api.php');
+
+// Determine simple health/status for each remote
+$endpointStatus = [];
+$endpointStatus['local'] = !empty($localUsers) ? 'ok' : 'empty';
+$endpointStatus['company_b'] = !empty($companyB_users) ? 'ok' : 'unreachable';
+$endpointStatus['company_c'] = !empty($companyC_users) ? 'ok' : 'unreachable';
+
+// Normalize/sanitize user lists to ensure we only iterate arrays of associative items
+function normalizeUsers($raw) {
+    if (!is_array($raw)) return [];
+    // If it's already a numerically indexed list, filter to keep only arrays
+    $keys = array_keys($raw);
+    $isIndexed = ($keys === range(0, count($raw) - 1));
+    if ($isIndexed) {
+        $out = [];
+        foreach ($raw as $item) {
+            if (is_array($item)) {
+                $out[] = $item;
+            }
+        }
+        return $out;
+    }
+    // If associative, try to find a nested list value
+    foreach ($raw as $val) {
+        if (is_array($val)) {
+            $innerKeys = array_keys($val);
+            if ($innerKeys === range(0, count($val) - 1)) return $val; // nested list
+        }
+    }
+    return [];
+}
+
+$localUsers = normalizeUsers($localUsers);
+$companyB_users = normalizeUsers($companyB_users);
+$companyC_users = normalizeUsers($companyC_users);
 ?>
 
 <div class="content">
     <h1>Combined List of Users</h1>
 
-    <h2 class="section-title">Company A Users (Local)</h2>
+    <h2 class="section-title">Company A Users (Local) <small style="font-size:0.8rem;color:#666;">Status: <?php echo $endpointStatus['local']; ?></small></h2>
     <table class="users-table">
         <thead>
             <tr><th>ID</th><th>Name</th><th>Email</th></tr>
         </thead>
         <tbody>
-            <?php foreach ($localUsers as $user): ?>
+            <?php foreach ($localUsers as $idx => $user): ?>
+                <?php
+                    if (!is_array($user)) continue;
+                    $uid = $user['id'] ?? ($idx+1);
+                    $uname = $user['name'] ?? ($user['full_name'] ?? '');
+                    $uemail = $user['email'] ?? '';
+                ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['name']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars((string)$uid) ?></td>
+                    <td><?= htmlspecialchars((string)$uname) ?></td>
+                    <td><?= htmlspecialchars((string)$uemail) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <h2 class="section-title">Company B Users</h2>
+    <h2 class="section-title">Company B Users <small style="font-size:0.8rem;color:#666;">Status: <?php echo $endpointStatus['company_b']; ?></small></h2>
     <table class="users-table">
         <thead>
             <tr><th>ID</th><th>Name</th><th>Email</th></tr>
         </thead>
         <tbody>
-            <?php foreach ($companyB_users as $user): ?>
+            <?php foreach ($companyB_users as $idx => $user): ?>
+                <?php
+                    if (!is_array($user)) continue;
+                    $uid = $user['id'] ?? ($idx+1);
+                    $uname = $user['name'] ?? ($user['full_name'] ?? '');
+                    $uemail = $user['email'] ?? '';
+                ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['name']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars((string)$uid) ?></td>
+                    <td><?= htmlspecialchars((string)$uname) ?></td>
+                    <td><?= htmlspecialchars((string)$uemail) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <h2 class="section-title">Company C Users</h2>
+    <h2 class="section-title">Company C Users <small style="font-size:0.8rem;color:#666;">Status: <?php echo $endpointStatus['company_c']; ?></small></h2>
     <table class="users-table">
         <thead>
             <tr><th>ID</th><th>Name</th><th>Email</th></tr>
         </thead>
         <tbody>
-            <?php foreach ($companyC_users as $user): ?>
+            <?php foreach ($companyC_users as $idx => $user): ?>
+                <?php
+                    if (!is_array($user)) continue;
+                    $uid = $user['id'] ?? ($idx+1);
+                    $uname = $user['name'] ?? ($user['full_name'] ?? '');
+                    $uemail = $user['email'] ?? '';
+                ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['name']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars((string)$uid) ?></td>
+                    <td><?= htmlspecialchars((string)$uname) ?></td>
+                    <td><?= htmlspecialchars((string)$uemail) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
