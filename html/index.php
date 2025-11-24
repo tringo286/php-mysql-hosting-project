@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
+<?php include __DIR__ . '/includes/header.php'; ?>
 
 <div class="hero">
     <h1>Welcome to TechPro Solutions</h1>
@@ -6,7 +6,7 @@
 </div>
 
 <div class="content">
-    <h2>Why Choose TechPro Solutions?</h2>
+    <h2>Why Choose TechPro Solutions? Tri</h2>
     <p>We're a leading technology solutions provider specializing in custom software development, cloud solutions, and
         digital transformation. With over a decade of experience, we help businesses thrive in the digital age.</p>
 
@@ -26,4 +26,4 @@
     </div>
 </div>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

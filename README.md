@@ -36,3 +36,18 @@ docker run -p 8080:80 -e DB_HOST=host -e DB_USER=user -e DB_PASS=pass -e DB_NAME
 ```
 
 Then open http://localhost:8080
+
+How to run with Homebrew PHP: 
+brew install php (if you don’t already have it)
+cd ~/Sites/myproject
+php -S localhost:8000
+http://localhost:8000
+
+user: admin
+password: admin123
+
+How to php + mysql with docker (locally)
+docker-compose up -d (run the containters)
+docker-compose exec web php index.php (run php script)
+docker-compose down (stop containers)
+
