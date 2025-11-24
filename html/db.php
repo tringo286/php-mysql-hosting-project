@@ -1,32 +1,36 @@
 <?php
-// Enable mysqli error reporting with exceptions
+// Enable mysqli error reporting
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-try {
-    // Load environment variables
-    $host = getenv('DB_HOST') ?: 'localhost';
-    $user = getenv('DB_USER') ?: 'root';
-    $password = getenv('DB_PASSWORD') ?: '';
-    $dbname = getenv('DB_NAME') ?: 'database';
-    $port = getenv('DB_PORT') ?: 3306;
+// Autoload Composer
+require_once __DIR__ . '/vendor/autoload.php';
 
-    // Create connection
+// Load environment variables from .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+try {
+    // Read DB values
+    $host = $_ENV['DB_HOST'];
+    $user = $_ENV['DB_USER'];
+    $password = $_ENV['DB_PASSWORD'];
+    $dbname = $_ENV['DB_NAME'];
+    $port = (int) $_ENV['DB_PORT'];
+
+    // Connect
     $mysqli = new mysqli($host, $user, $password, $dbname, $port);
-    
-    // Set charset to prevent encoding issues
+
+    // Set charset
     $mysqli->set_charset('utf8mb4');
-    
-    // Optional: Set options for better type handling
+
+    // Enable numeric type conversion
     $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
-    
+
 } catch (mysqli_sql_exception $e) {
-    // Log error securely (don't expose details to users in production)
     error_log("Database connection failed: " . $e->getMessage());
-    
-    // Show user-friendly message
-    die("Database connection error. Please try again later.");
+    die("Database connection error.");
 }
 
-// Unset sensitive variables
+// Optional: remove sensitive vars
 unset($host, $user, $password, $dbname, $port);
 ?>
