@@ -1,53 +1,78 @@
-# PHP + MySQL demo for Render
+# PHP + MySQL Demo App for Render
+A minimal PHP application demonstrating a MySQL connection using **environment variables**. Ready to deploy to [Render](https://render.com) or run locally with PHP.
 
-This repository contains a minimal PHP app that connects to MySQL using environment variables. It's packaged with a Dockerfile and is ready to deploy to Render (https://render.com).
+## Features
+* Connects to MySQL using environment variables.
+* Simple web interface to create a table and add entries.
+* Compatible with Render deployment using Render Managed Databases or external MySQL hosts.    
 
-Environment variables
+## Environment Variables
 
-- DB_HOST: hostname (Render private service host or external MySQL host)
-- DB_PORT: optional, default 3306
-- DB_USER: database username
-- DB_PASS: database password
-- DB_NAME: database name (optional)
+Set the following in Render or your local environment:
 
-How the app works
+| Variable | Description |
+| --- | --- |
+| DB_HOST | MySQL hostname (freesqldatabase) |
+| DB_PORT | MySQL port |
+| DB_USER | Database username |
+| DB_PASS | Database password |
+| DB_NAME | Database name |
 
-- Visit the site, click "Create table`visits`" to create the table.
-- Add entries using the form and they will be stored in the database.
+## Usage
 
-Render deployment (Docker)
+### 1\. Running on Render
 
-1. Create a new "Web Service" on Render.
-2. Connect your repository and choose the `main` branch.
-3. For the environment, choose "Docker" and Render will build the included `Dockerfile`.
-4. Add environment variables in Render for DB_HOST, DB_USER, DB_PASS, DB_NAME.
+1.  Create a **Web Service** in Render.
+    
+2.  Connect your GitHub repository and select the `main` branch.
+    
+3.  Add environment variables (`DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, optionally `DB_PORT`).
+    
+4.  Visit your deployed app in the browser.
+    
 
-If you prefer to use Render's Managed PostgreSQL or MySQL, create the database first and copy the host/user/password into the service's environment variables.
+> If using Render Managed MySQL/PostgreSQL, create the database first and copy the credentials into your environment variables.
 
-Local testing with Docker
+### 2\. Running Locally
 
-Build and run locally (assuming Docker Desktop installed):
+1.  Make sure PHP and MySQL are installed on your machine (e.g., via Homebrew on macOS).
+    
+2.  Set your environment variables locally (or create a `.env` file for development).
+    
+3.  Start the PHP built-in server in the project root:
+    
 
-```bash
-# build
-docker build -t php-mysql-demo .
-# run (replace values)
-docker run -p 8080:80 -e DB_HOST=host -e DB_USER=user -e DB_PASS=pass -e DB_NAME=db php-mysql-demo
-```
+`php -S localhost:8000`
 
-Then open http://localhost:8080
+4.  Open [http://localhost:8000](http://localhost:8000) in your browser.
+    
 
-How to run with Homebrew PHP: 
-brew install php (if you don’t already have it)
-cd ~/Sites/myproject
-php -S localhost:8000
-http://localhost:8000
+### 3\. Default Login
 
-user: admin
-password: admin123
+*   **Username:** `admin`
+    
+*   **Password:** `admin123`
+    
 
-How to php + mysql with docker (locally)
-docker-compose up -d (run the containters)
-docker-compose exec web php index.php (run php script)
-docker-compose down (stop containers)
+## Project Structure
 
+html/       ← main PHP files  
+admin/      ← admin pages  
+assets/     ← images, CSS, JS  
+includes/   ← reusable PHP includes  
+pages/      ← main pages  
+db.php      ← database connection  
+index.php   ← entry point  
+vendor/     ← Composer dependencies  
+composer.json  
+composer.lock  
+README.md  
+.gitignore
+
+## Notes
+
+*   `.env` is **not included in production**. Use Render’s environment variables instead.
+    
+*   Composer dependencies (`vendor/`) must be present for local testing or installed via `composer install`.
+    
+*   Ensure your database allows connections from the deployment environment (Render cloud).
