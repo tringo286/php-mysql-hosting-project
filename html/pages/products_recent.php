@@ -1,5 +1,4 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 $map = [
     'product1' => 'AI Analytics Platform',
@@ -20,17 +19,21 @@ if (!empty($_COOKIE['recent_products'])) {
 }
 
 ?>
-<div class="content">
-    <h2>Recently Visited Products</h2>
-    <?php if (empty($recent)): ?>
-        <p>No recently visited products yet.</p>
-    <?php else: ?>
-        <ul>
-            <?php foreach ($recent as $id): ?>
-                <li><a href="/<?php echo "pages/$id.php"; ?>"><?php echo htmlspecialchars($map[$id] ?? $id); ?></a></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+<div class="page-wrapper">
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
+    <div class="content">
+        <h2>Recently Visited Products</h2>
+        <?php if (empty($recent)): ?>
+            <p>No recently visited products yet.</p>
+        <?php else: ?>
+            <ul>
+                <?php foreach ($recent as $id): ?>
+                    <li><a href="/<?php echo "pages/$id.php"; ?>"><?php echo htmlspecialchars($map[$id] ?? $id); ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
 </div>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
+

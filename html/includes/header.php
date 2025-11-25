@@ -1,22 +1,45 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
-<style>
-    body {
-        font-family: 'Montserrat', 'Arial', sans-serif;
-        background: #f4f6fb;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPro Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/index.php">TechPro</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
+                <li><a href="/pages/about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a></li>
+                <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a></li>
+                <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
+                <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a></li>
+                <li><a href="/pages/combined_users.php" <?php echo $currentPage == 'combined_users.php' ? 'class="active"' : ''; ?>>Users</a></li>
+                <li><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class="active"' : ''; ?>>Admin</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 30px 28px 80px; /* added bottom padding so footer doesn't overlap */
-            background: #fff;
-            box-shadow: 0 2px 12px rgba(78,67,118,0.08);
-            border-radius: 12px;
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100%;
         }
 
         nav {
@@ -24,174 +47,98 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             box-shadow: 0 2px 8px rgba(78,67,118,0.07);
         }
 
-        nav ul {
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: auto;
+            margin: 0;
+            padding: 10px 50px;
+        }
+
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 30px;
+        }
+
+        ul.nav-links {
             list-style: none;
+            display: flex;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        nav ul li {
-            margin: 0 22px;
+        ul.nav-links li {
+            margin: 0 15px;
         }
 
-        nav ul li a {
+        ul.nav-links li a {
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.13rem;
+            font-size: 18px;
             padding: 18px 0;
             display: block;
-            letter-spacing: 0.5px;
             transition: color 0.2s, border-bottom 0.2s;
         }
 
-        nav ul li a.active,
-        nav ul li a:hover {
+        ul.nav-links li a.active,
+        ul.nav-links li a:hover {
             color: #ffd700;
             border-bottom: 2px solid #ffd700;
         }
 
-        .admin-link {
-            margin-left: auto;
-        }
-
-        h1, h2, h3 {
-            color: #4e4376;
-            font-family: 'Montserrat', Arial, sans-serif;
-            margin-top: 0;
-        }
-
-        button, input[type="submit"] {
-            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 22px;
-            font-size: 1.07rem;
-            font-family: 'Montserrat', Arial, sans-serif;
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
             cursor: pointer;
-            transition: background 0.2s, color 0.2s;
+            gap: 5px;
         }
 
-        button:hover, input[type="submit"]:hover {
-            background: #ffd700;
-            color: #4e4376;
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            display: block;
+            border-radius: 2px;
         }
 
-        input, textarea {
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 1.07rem;
-            margin-bottom: 14px;
-            width: 100%;
-            box-sizing: border-box;
-            font-family: 'Montserrat', Arial, sans-serif;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
 
-        .error {
-            color: #d32f2f;
-            background: #ffeaea;
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 14px;
-        }
+            ul.nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
+                flex-direction: column;
+                display: none;
+            }
 
-        .users-list ul {
-            background: #f7f7fa;
-            border-radius: 8px;
-            padding: 22px;
-            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
-        }
+            ul.nav-links.show {
+                display: flex;
+            }
 
-        .users-list li {
-            margin-bottom: 12px;
-            font-size: 1.09rem;
-        }
-
-        .contact-info {
-            background-color: #f9f9f9;
-            padding: 24px;
-            border-radius: 8px;
-            margin-top: 24px;
-            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
-        }
-        .hero {
-            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
-            color: #fff;
-            padding: 48px 0 32px 0;
-            text-align: center;
-            border-radius: 12px 12px 0 0;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(78,67,118,0.07);
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 0;
-        }
-        .content {
-            margin-top: 18px;
-        }
-        .product-item, .news-item {
-            background: #f7f7fa;
-            border-radius: 8px;
-            padding: 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
-        }
-        .product-item h3, .news-item h3 {
-            color: #2b5876;
-            margin-top: 0;
-        }
-        .product-item ul, .news-item ul {
-            margin-left: 18px;
-        }
-        .contact-info {
-            background-color: #f9f9f9;
-            padding: 24px;
-            border-radius: 8px;
-            margin-top: 24px;
-            box-shadow: 0 1px 4px rgba(78,67,118,0.04);
-        }
-        form label {
-            font-weight: 500;
-            color: #4e4376;
-        }
-        form button, form input[type="submit"] {
-            background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 22px;
-            font-size: 1.07rem;
-            font-family: 'Montserrat', Arial, sans-serif;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        form button:hover, form input[type="submit"]:hover {
-            background: #ffd700;
-            color: #4e4376;
+            ul.nav-links li {
+                margin: 10px 0;
+                text-align: center;
+            }
         }
     </style>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
-            <li><a href="/pages/about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a></li>
-            <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a></li>
-            <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
-            <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a></li>
-            <li style="margin-left: auto;"><a href="/pages/combined_users.php" <?php echo $currentPage == 'combined_users.php' ? 'class="active"' : ''; ?>>Users</a></li>
-            <li><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class=\"active\"' : ''; ?>>Admin</a></li>
-        </ul>
-    </nav>
-    <div class="container">
+
+    <!-- ===== Hamburger JS ===== -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>

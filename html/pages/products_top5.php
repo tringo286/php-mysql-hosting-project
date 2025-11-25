@@ -1,5 +1,4 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 $map = [
     'product1' => 'AI Analytics Platform',
@@ -23,17 +22,21 @@ arsort($counts);
 $top = array_slice($counts, 0, 5, true);
 
 ?>
-<div class="content">
-    <h2>Top 5 Most Visited Products</h2>
-    <?php if (empty($top)): ?>
-        <p>No product visits recorded yet.</p>
-    <?php else: ?>
-        <ol>
-            <?php foreach ($top as $id => $cnt): ?>
-                <li><a href="/<?php echo "pages/$id.php"; ?>"><?php echo htmlspecialchars($map[$id] ?? $id); ?></a> — <?php echo (int)$cnt; ?> visits</li>
-            <?php endforeach; ?>
-        </ol>
-    <?php endif; ?>
+<div class="page-wrapper">
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
+    <div class="content">
+        <h2>Top 5 Most Visited Products</h2>
+        <?php if (empty($top)): ?>
+            <p>No product visits recorded yet.</p>
+        <?php else: ?>
+            <ol>
+                <?php foreach ($top as $id => $cnt): ?>
+                    <li><a href="/<?php echo "pages/$id.php"; ?>"><?php echo htmlspecialchars($map[$id] ?? $id); ?></a> — <?php echo (int)$cnt; ?> visits</li>
+                <?php endforeach; ?>
+            </ol>
+        <?php endif; ?>
+    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
 </div>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
+
