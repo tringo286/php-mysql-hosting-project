@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<div class="page-wrapper">
-    <?php include('../includes/header.php'); ?>
+<?php include('../includes/header.php'); ?>
+
     <div class="login-container">
         <h2>Admin Login</h2>
 
@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn-login">Login</button>
         </form>
     </div> 
-    <?php include('../includes/footer.php'); ?>   
-</div>
+
+<?php include('../includes/footer.php'); ?>   
 
 <style>
     .page-wrapper {
@@ -135,5 +135,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         from { opacity: 0; transform: translateY(10px); }
         to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* Mobile-friendly adjustments */
+    @media (max-width: 480px) {
+        .login-container {
+            width: 92%;
+            margin: 30px auto;
+            padding: 28px 22px;
+            box-shadow: 0 6px 18px rgba(78, 67, 118, 0.10);
+            border-radius: 12px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .btn-login {
+            padding: 12px;
+            font-size: 1.05rem;
+            margin-top: 12px;
+            border-radius: 7px;
+        }
+
+        .error {
+            padding: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+    }
+
 </style>
 

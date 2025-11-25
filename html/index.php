@@ -1,7 +1,6 @@
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-<div class="page-wrapper">
-    <div class="hero">
+<div class="hero">
         <h1>Welcome to TechPro Solutions</h1>
         <p>Innovative Technology Solutions for Tomorrow's Challenges</p>
     </div>
@@ -38,7 +37,6 @@
             </div>
         </div> 
     </div>
-</div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
 

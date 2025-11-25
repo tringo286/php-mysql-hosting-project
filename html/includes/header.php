@@ -48,6 +48,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         nav {
             background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
             box-shadow: 0 2px 8px rgba(78,67,118,0.07);
+            z-index: 1000; 
         }
 
         .nav-container {
@@ -117,7 +118,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
             ul.nav-links {
                 position: absolute;
-                top: 70px;
+                top: 55px;
                 left: 0;
                 width: 100%;
                 background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
@@ -129,8 +130,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 display: flex;
             }
 
-            ul.nav-links li {
-                margin: 10px 0;
+            ul.nav-links li {                
                 text-align: center;
             }
         }

@@ -6,8 +6,6 @@
 </div>
 
 <div class="contact-container">
-
-    <!-- Contact Information Card -->
     <div class="contact-card">
         <h2>Contact Information</h2>
         <div class="contact-info">
@@ -32,7 +30,6 @@
         </div>
     </div>
 
-    <!-- Contact Form Card -->
     <div class="form-card">
         <h2>Send us a Message</h2>
 
@@ -55,11 +52,9 @@
             <button type="submit" class="btn-submit">Send Message</button>
         </form>
     </div>
-
 </div>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
-
 
 <style>
 /* Layout Container */
