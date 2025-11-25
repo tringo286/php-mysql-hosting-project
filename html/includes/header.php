@@ -49,6 +49,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             background: linear-gradient(90deg, #2b5876 0%, #4e4376 100%);
             box-shadow: 0 2px 8px rgba(78,67,118,0.07);
             z-index: 1000; 
+            position: sticky;  
+            top: 0; 
         }
 
         .nav-container {
