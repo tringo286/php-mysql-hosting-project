@@ -44,10 +44,38 @@ $partnerB_url = "https://anukrithimyadala.42web.io/users_api.php";
 // Fetch users remotely
 $partnerA_users = fetch_remote_users($partnerA_url);
 $partnerB_users = [
-    ['name' => 'May Shim', 'role' => 'Marketing Designer'],
-    ['name' => 'John Wang', 'role' => 'Product Engineer'],
-    ['name' => 'Emily Stone', 'role' => 'Software Engineer'],
-    ['name' => 'Sales Associate', 'role' => 'Sales Associate'], // you can fix the name if needed
+    [
+        'id' => 1,
+        'name' => 'Mary Smith',
+        'email' => 'mary.smith@purebitebeauty.com',
+        'role' => 'Marketing Lead',
+        'status' => 'Active',
+        'joined_date' => '2024-01-10'
+    ],
+    [
+        'id' => 2,
+        'name' => 'John Wang',
+        'email' => 'john.wang@purebitebeauty.com',
+        'role' => 'Product Designer',
+        'status' => 'Active',
+        'joined_date' => '2024-02-14'
+    ],
+    [
+        'id' => 3,
+        'name' => 'Alex Bington',
+        'email' => 'alex.bington@purebitebeauty.com',
+        'role' => 'Software Engineer',
+        'status' => 'Active',
+        'joined_date' => '2024-03-20'
+    ],
+    [
+        'id' => 4,
+        'name' => 'Emily Stone',
+        'email' => 'emily.stone@purebitebeauty.com',
+        'role' => 'Sales Associate',
+        'status' => 'Inactive',
+        'joined_date' => '2024-04-05'
+    ],
 ];
 
 ?>
@@ -116,12 +144,17 @@ $partnerB_users = [
             </table>
         </div>
    
-        <h2>Purestle Beauty Users</h2>
+        <h2>PureBite Beauty Users</h2>
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>#</th><th>Name</th><th>Role</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Joined</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,7 +164,10 @@ $partnerB_users = [
                         <tr>
                             <td><?= $counter++ ?></td>
                             <td><?= htmlspecialchars($u['name']) ?></td>
+                            <td><?= htmlspecialchars($u['email']) ?></td>
                             <td><?= htmlspecialchars($u['role']) ?></td>
+                            <td><?= htmlspecialchars($u['status']) ?></td>
+                            <td><?= htmlspecialchars($u['joined_date']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
