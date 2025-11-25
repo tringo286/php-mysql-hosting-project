@@ -6,8 +6,8 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Load .env only if it exists (local development)
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../'); // adjust path if needed
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 }
 
