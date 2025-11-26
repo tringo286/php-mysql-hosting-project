@@ -12,7 +12,7 @@ if (!empty($_COOKIE['recent_products'])) {
 <div class="page-wrapper" style="position: relative;">
     <div class="hero">
         <a class="back-button" href="/pages/products.php">&#8592;</a>
-        <h1>Recently Visited Products</h1>
+        <h1>Recently Visited Services</h1>
         <p>Quick access to products you've viewed recently.</p>
     </div>
 

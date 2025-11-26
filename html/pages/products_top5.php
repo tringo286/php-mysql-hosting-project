@@ -16,7 +16,7 @@ $top = array_slice($counts, 0, 5, true);
 <div class="page-wrapper" style="position: relative;">
     <div class="hero">
         <a class="back-button" href="/pages/products.php">&#8592;</a>
-        <h1>Top 5 Most Visited Products</h1>
+        <h1>Top 5 Most Visited Services</h1>
         <p>See which products are the most popular among our users.</p>
     </div>
 

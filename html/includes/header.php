@@ -24,11 +24,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <ul class="nav-links" id="nav-links">
                 <li><a href="/index.php" <?php echo $currentPage == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
                 <li><a href="/pages/about.php" <?php echo $currentPage == 'about.php' ? 'class="active"' : ''; ?>>About</a></li>
-                <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Products</a></li>
+                <li><a href="/pages/products.php" <?php echo $currentPage == 'products.php' ? 'class="active"' : ''; ?>>Services</a></li>
                 <li><a href="/pages/news.php" <?php echo $currentPage == 'news.php' ? 'class="active"' : ''; ?>>News</a></li>
                 <li><a href="/pages/contact.php" <?php echo $currentPage == 'contact.php' ? 'class="active"' : ''; ?>>Contact</a></li>
                 <li><a href="/pages/combined_users.php" <?php echo $currentPage == 'combined_users.php' ? 'class="active"' : ''; ?>>Users</a></li>
-                <li><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class="active"' : ''; ?>>Admin</a></li>
+                <li><a href="/admin/login.php" <?php echo $currentPage == 'login.php' ? 'class="active"' : ''; ?>>Login</a></li>
             </ul>
         </div>
     </nav>
