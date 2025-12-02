@@ -2,14 +2,24 @@
 require_once __DIR__ . '/../db.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
-// Fetch all products
-$result = $mysqli->query("SELECT id, slug, title, description, details FROM products ORDER BY title ASC");
+// Fetch only products from TechPro
+$result = $mysqli->query(
+    "SELECT id, slug, title, description, details 
+     FROM products 
+     WHERE seller = 'TechPro' 
+     ORDER BY title ASC"
+);
 $products = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div class="hero">
     <h1>Our Products & Services</h1>
     <p>Innovative technology solutions built for real business impact</p>
+</div>
+
+<div class="product-actions">
+    <a class="action-btn" href="/pages/products_recent.php">Recently Visited</a>
+    <a class="action-btn" href="/pages/products_top5.php">Top 5 Most Visited</a>
 </div>
 
 <div class="products-container">
@@ -35,12 +45,7 @@ $products = $result->fetch_all(MYSQLI_ASSOC);
                 <a href="/pages/product.php?slug=<?php echo urlencode($product['slug']); ?>" class="action-btn">View Product</a>
             </div>
         <?php endforeach; ?>
-    </div>
-
-    <div class="product-actions">
-        <a class="action-btn" href="/pages/products_recent.php">Recently Visited</a>
-        <a class="action-btn" href="/pages/products_top5.php">Top 5 Most Visited</a>
-    </div>
+    </div>    
 </div>
 
 <style>
